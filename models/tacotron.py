@@ -129,8 +129,7 @@ class Tacotron():
       # Prioritize loss for frequencies under hp.prior_freq Hz.
       n_priority_freq = int(hp.prior_freq / (hp.sample_rate * 0.5) * hp.num_freq)
       self.linear_loss = 0.5 * tf.reduce_mean(l1) + 0.5 * tf.reduce_mean(l1[:,:,0:n_priority_freq])
-      self.vq_loss = tf.reduce_mean(tf.norm(tf.stop_gradient(self.z_e) - self.z_q, axis = -1)**2)
-      self.loss = self.mel_loss + self.linear_loss + self.vq_loss
+      self.loss = self.mel_loss + self.linear_loss
 
 
   def add_optimizer(self, global_step):
