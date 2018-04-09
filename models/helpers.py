@@ -5,14 +5,11 @@ from tensorflow.contrib.seq2seq import Helper
 
 # Adapted from tf.contrib.seq2seq.GreedyEmbeddingHelper
 class TacoTestHelper(Helper):
-  def __init__(self, batch_size, output_dim, r, embedding_vq, K, D):
+  def __init__(self, batch_size, output_dim, r):
     with tf.name_scope('TacoTestHelper'):
       self._batch_size = batch_size
       self._output_dim = output_dim
       self._end_token = tf.tile([0.0], [output_dim * r])
-      self._embedding_vq = embedding_vq
-      self._K = K
-      self._D = D
 
   @property
   def batch_size(self):
@@ -37,13 +34,7 @@ class TacoTestHelper(Helper):
     with tf.name_scope('TacoTestHelper'):
       finished = tf.reduce_all(tf.equal(outputs, self._end_token), axis=1)
       # Feed last output frame as next input. outputs is [N, output_dim * r]
-      # next_inputs = outputs[:, -self._output_dim:]
-      tmp = outputs[:, -self._output_dim:]
-      _t = tf.tile(tf.expand_dims(tmp, -2), [1, self._K, 1])
-      _e = tf.reshape(self._embedding_vq, [1, self._K, self._D])
-      _t = tf.norm(_t - _e, axis = -1)
-      k = tf.argmin(_t, axis = -1)
-      next_inputs = tf.gather(self._embedding_vq, k)
+      next_inputs = outputs[:, -self._output_dim:]
       return (finished, next_inputs, state)
 
 

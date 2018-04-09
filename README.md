@@ -2,4 +2,6 @@
 
 ## To do:
 
-- [ ] Upload source code.
+- [x] Upload source code.
+- [ ] Run and verify.
+- [ ] Detailed readme.
