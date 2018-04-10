@@ -28,7 +28,6 @@ hparams = tf.contrib.training.HParams(
 
   # Training:
   prior_freq=6000,
-  K=1024,
   batch_size=10,
   adam_beta1=0.9,
   adam_beta2=0.999,

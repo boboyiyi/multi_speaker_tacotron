@@ -90,7 +90,6 @@ class Tacotron():
       mel_outputs = tf.reshape(decoder_outputs, [batch_size, -1, hp.num_mels]) # [N, T_out, M] 
 
       # Add post-processing CBHG:
-      # post_outputs = post_cbhg(z_q, hp.num_mels, is_training)           # [N, T_out, 256]
       post_outputs = post_cbhg(mel_outputs, hp.num_mels, is_training)           # [N, T_out, 256]
       linear_outputs = tf.layers.dense(post_outputs, hp.num_freq)               # [N, T_out, F]
 
