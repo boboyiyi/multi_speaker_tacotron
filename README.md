@@ -32,8 +32,8 @@ sh run_eval.sh
 
 ## References:
 
-- [https://github.com/keithito/tacotron]
-- [https://github.com/kastnerkyle/multi-speaker-tacotron-tensorflow]
+- https://github.com/keithito/tacotron
+- https://github.com/kastnerkyle/multi-speaker-tacotron-tensorflow
 
 ## To do:
 

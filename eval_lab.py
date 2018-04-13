@@ -30,7 +30,6 @@ def run_eval(args):
         with open(wav_name, 'wb') as f:
           out, mel_outputs = synth.synthesize(lab_name)
           f.write(out)
-          mel_outputs = np.squeeze(mel_outputs, axis=0)
           np.save(mel_name, mel_outputs)
           # f.write(synth.synthesize(lab_name))
 

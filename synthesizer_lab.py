@@ -33,11 +33,15 @@ class Synthesizer:
       self.model.inputs: lab,
       self.model.input_lengths: np.asarray([lab.shape[1]], dtype=np.int32),
       # change 0 to 1 or others based on the speaker
-      self.model.speaker_ids: np.asarray([0], dtype=np.int32)
+      self.model.speaker_ids: np.asarray([2], dtype=np.int32)
     }
-    wav, mel_outputs = self.session.run([self.wav_output, self.model.mel_outputs], feed_dict=feed_dict)
+    wav, mel_outputs = self.session.run([self.wav_output, self.model.mel_outputs[0]], feed_dict=feed_dict)
     wav = audio.inv_preemphasis(wav)
-    wav = wav[:audio.find_endpoint(wav)]
+    _len = audio.find_endpoint(wav)
+    wav = wav[:_len]
+    _len = audio.find_endpoint(wav)
+    wav = wav[:_len]
+    mel_output = mel_output[:frames, :]
     out = io.BytesIO()
     audio.save_wav(wav, out)
     return out.getvalue(), mel_outputs
